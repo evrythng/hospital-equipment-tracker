@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--    <link rel="stylesheet" type="text/css" href="css/styles.css">-->
+
+    <title>Hospital Equipment Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="Joël Vogt">
+
+    <!-- Favicon -->
+    <link rel="icon" href="">
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <style>
+
+        .content {
+            margin-top: 50px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="update_location.html">Change Location</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="update_product.html">Set Product Type</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+
+<div class="content" style="width: 100%">
+
+    <h1 id="equipmentTitle" style="margin-bottom: 5%"></h1>
+    <div class="container" id="thngContainer" style="width: 95%;text-align:left;margin-bottom: 5%">
+        <h2>Product Information</h2>
+        <div class="card" hidden id="thngIdentifiersCard">
+            <h4 class="card-title">Overview</h4>
+            <div class="container" id="thngIdentifiers"></div>
+        </div>
+        <div class="card" hidden id="thngCustomFieldsCard">
+            <!--            <h5 class="card-title">Custom fields</h5>-->
+            <div class="container" id="thngCustomFields"></div>
+        </div>
+        <div class="card" hidden id="productInformationCard">
+            <!--            <h5 class="card-title">Custom fields</h5>-->
+            <div class="container" id="productInformation"></div>
+        </div>
+    </div>
+
+
+    <div class="container" id="locationContainer" style="width: 95%;text-align:left">
+        <h2>Location</h2>
+        <div class="card" hidden id="locationInformationCard" >
+
+            <!--            <h5 class="card-title">Custom fields</h5>-->
+            <div class="container" id="locationInformation"></div>
+        </div>
+    </div>
+
+    <div class="container fixed-bottom" style="width: 95%;margin: 5%">
+        <form>
+            <button type="button" class="btn btn-primary btn-lg btn-block active" id="equipmentState"></button>
+        </form>
+
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+
+<!-- Tether -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+
+<!-- Bootstrap 4 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+<!-- Libs -->
+
+
+<!-- EVRYTHNG SDKs -->
+<script src="https://d10ka0m22z5ju5.cloudfront.net/js/evrythng/5.8.0/evrythng-5.8.0.js"></script>
+
+<!-- app -->
+<script src="config.js"></script>
+<script>
+
+    evrythng.setup({apiUrl: 'https://api.evrythng.com', geolocation: false});
+
+    const app = new evrythng.TrustedApplication(apiKey);
+
+    function queryStrToDict(searchStr) {
+
+        function fn(query) {
+            const idx = {};
+            for (let i = query.length - 1; i >= 0; i--)
+                idx[query[i]] = i;
+            const queryDict = {};
+            if ('&' in idx) {
+                let queryParams = fn(query.slice(idx['&'] + 1, query.length));
+                for (let k in queryParams)
+                    queryDict[k] = queryParams[k];
+                query = query.slice(0, idx['&']);
+            }
+            queryDict[query.slice(0, idx['='])] = query.slice(idx['='] + 1, idx['&']);
+            return queryDict;
+        }
+
+        return fn(searchStr.slice(1, searchStr.length))
+
+    }
+
+
+    function queryParam(param) {
+        if (this.queryParams === undefined)
+            this.queryParams = queryStrToDict(window.location.search)
+        return this.queryParams[param]
+    }
+
+
+    async function updateCollection(collectionId, dict) {
+        for (let k in dict) {
+            let label = document.createElement('div');
+            label.textContent = k;
+            label.setAttribute('class', 'col');
+            let value = document.createElement('div');
+            value.setAttribute('class', 'col');
+            value.textContent = dict[k];
+            let identifierEntry = document.createElement('div');
+            identifierEntry.setAttribute('class', 'row');
+            ;
+            identifierEntry.appendChild(label);
+            identifierEntry.appendChild(value);
+            document.getElementById(collectionId).appendChild(identifierEntry);
+        }
+        document.getElementById(collectionId).hasChildNodes() && document.getElementById(collectionId + "Card").removeAttribute("hidden")
+    }
+
+
+    function updateInUseView(inUse) {
+        if (inUse) {
+            document.getElementById("equipmentState").classList.add('btn-success');
+            document.getElementById("equipmentState").classList.replace('btn-success', 'btn-danger');
+            document.getElementById("equipmentState").innerText = "Occupied";
+        } else {
+            document.getElementById("equipmentState").classList.add('btn-danger');
+            document.getElementById("equipmentState").classList.replace('btn-danger', 'btn-success');
+            document.getElementById("equipmentState").innerText = "Free";
+        }
+    }
+
+
+
+
+    document.getElementById("equipmentState").onclick = async () => {
+        const thng = await app.thng(queryParam('thngId')).read();
+        let inUse = !thng.properties.inuse;
+        const action = {
+            type: inUse ? '_InUse' : '_Free',
+            thng: thng.id
+        };
+
+        updateInUseView(inUse);
+        if (inUse)
+            await app.thng(thng.id).action(action.type).create(action).then();
+        else
+            await app.thng(thng.id).action(action.type).create(action).then();
+    };
+
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        if (apiKey === undefined) {
+            $('#equipmentTitle').text('Query string missing');
+        }
+        const thng = await app.thng(queryParam('thngId')).read();
+        localStorage.setItem("thng", JSON.stringify(thng));
+        updateInUseView(thng.properties.inuse);
+        const product = await app.product(thng.product).read().then();
+        await updateCollection('thngIdentifiers', thng.identifiers);
+        await updateCollection('thngCustomFields', thng.customFields);
+        const productInformation = {
+            brand: product.brand,
+            'product name': product.name,
+            specification: product.description
+        };
+        await updateCollection('productInformation', productInformation);
+        const currentLocation = await app.place(thng.location.place).read();
+        // JSON.stringify(currentLocation)
+        const placeInformation = {};
+        placeInformation.name = currentLocation.name;
+        for (let k in currentLocation.customFields)
+            placeInformation[k.replace('_', ' ')] = currentLocation.customFields[k];
+
+        await updateCollection('locationInformation', placeInformation);
+        window.addEventListener('blur', onFocusOut);
+        window.addEventListener('focus', onFocus);
+
+    }, false);
+
+    function onFocusOut() {
+        window.addEventListener('focusin', onFocus);
+        window.removeEventListener('focusout', onFocusOut, false);
+    }
+
+    async function onFocus() {
+        const thng = await app.thng(queryParam('thngId')).read();
+        updateInUseView(thng.properties.inuse);
+        $('#locationInformation').empty();
+        const currentLocation = await app.place(thng.location.place).read();
+
+        const placeInformation = {};
+        placeInformation.name = currentLocation.name;
+        for (let k in currentLocation.customFields)
+            placeInformation[k.replace('_', ' ')] = currentLocation.customFields[k];
+
+        await updateCollection('locationInformation', placeInformation);
+        window.addEventListener('focusout', onFocusOut);
+        window.removeEventListener('focusin', onFocus, false);
+    }
+
+
+    // store key on server?
+    // https://storage.googleapis.com/hospital-beds-store/web/index.html?thngId=U8kF7pW2HhePA7wcV7N9Essp
+</script>
+
+</body>
+</html>

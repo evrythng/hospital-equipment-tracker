@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--    <link rel="stylesheet" type="text/css" href="web/css/styles.css">-->
+
+    <title>Hospital Equipment Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="Joël Vogt">
+
+    <!-- Favicon -->
+    <link rel="icon" href="">
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <style>
+
+        .content {
+            margin-top: 50px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="toMainPage()">Equipment information</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="update_location.html">Change Location</a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>
+
+
+<div class="content" style="width: 100%;height: 100%">
+
+    <h1 id="equipmentTitle" style="margin-bottom: 5%;text-align:center"></h1>
+
+
+    <div id="stream_container" class="stream-container" style="width: 95%;height: 95%">
+        <!-- Video inserted here by scanthng.js -->
+    </div>
+    <!--        <div id="button-start-camera" class="button">Start Camera</div>-->
+    <a id="result" class="result" target="_blank"></a>
+
+    <hr/>
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin="anonymous"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+
+<!-- Tether -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+
+<!-- Bootstrap 4 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+<!-- Libs -->
+<script src="lib/jsQR/jsQR.js"></script>
+
+<!-- EVRYTHNG SDKs -->
+<script src="https://d10ka0m22z5ju5.cloudfront.net/toolkit/evrythng-js-sdk/evrythng-extended-4.7.2.min.js"></script>
+<script src="https://d10ka0m22z5ju5.cloudfront.net/toolkit/evrythng-js-sdk/scanthng-3.1.0.min.js"></script>
+
+<!-- app -->
+<script src="config.js"></script>
+<script>
+    const evrythng = EVT;
+    evrythng.setup({apiUrl: 'https://api.evrythng.com'});
+    evrythng.use(evrythng.Scan);
+    const app = new evrythng.TrustedApp(apiKey);
+    const UI = {
+        buttonStartCamera: document.getElementById('button-start-camera'),
+        checkboxRedirect: document.getElementById('checkbox-redirect'),
+        anchorResult: document.getElementById('result'),
+        selectMethod: document.getElementById('select-type')
+    };
+
+
+    const getQueryParam = (key) => {
+        const params = window.location.search.substring(1)
+            .split('&')
+            .reduce((res, item) => {
+                const [key, value] = item.split('=');
+                res[key] = value;
+                return res;
+            }, {});
+
+        return params[key];
+    };
+
+    const createFilter = () => {
+        const map = {
+            qr: {method: '2d', type: 'qr_code'},
+            ir: {method: 'ir', type: 'image'},
+            other: {method: 'auto', type: 'auto'},
+        };
+        return map['qr'];
+    };
+
+    const startCamera = () => {
+
+
+        app.scanStream({
+            filter: createFilter(),
+            containerId: 'stream_container',
+        }).then((res) => {
+            if (!res.length) {
+                UI.anchorResult.innerHTML = 'No results';
+                return;
+            }
+
+            // Raw URL
+            const url = new URL((res.length && res[0].results.length)
+                ? res[0].results[0].redirections[0]
+                : res[0].meta.value.trim());
+
+
+            const thng = JSON.parse(localStorage.thng);
+
+            if ('places' in pathToDict(url.pathname)) {
+                return app.place(pathToDict(url.pathname)['products']).read().then(place => {
+                    const action_type = '_SetEquipmentType';
+                    const actionDocument = {
+                        "type": action_type,
+                        "thng": thng.id,
+                        "customFields": {"product": pathToDict(url.pathname)['places']}
+                    };
+                    // UI.anchorResult.innerHTML = JSON.stringify(actionDocument);
+
+                    if (Object.getOwnPropertyNames(place).length >= 1)
+                        return app.action(action_type).create(actionDocument).then(data => {
+                            alert(`New location:  ${thng.name}`);
+                            // history.go(-1);
+                            toMainPage();
+                        });
+                });
+            }
+
+        }).catch(console.log);
+    };
+
+    function pathToDict(path) {
+        if (path[0] === '/') {
+            path = path.slice(1, path.length);
+        }
+        if (path[path.lenth - 1] === '/')
+            path = path.slice(0, path.length - 1);
+
+        function keys(path) {
+            const idx = {};
+            for (let i = path.length - 1; i >= 0; i--)
+                idx[path[i]] = i;
+            const {value, collection} = values(path.slice(idx['/'] + 1, path.length));
+            collection[path.slice(0, idx['/'])] = value;
+            return collection
+        }
+
+        function values(path) {
+
+            const idx = {};
+            for (let i = path.length - 1; i >= 0; i--)
+                idx[path[i]] = i;
+            if (!('/' in idx))
+                return {value: path, collection: {}};
+            return {value: path.slice(0, idx['/']), collection: keys(path.slice(idx['/'] + 1, path.length))}
+        }
+
+        return keys(path)
+    }
+
+    function toMainPage() {
+        window.location.href = `index.html?thngId=${JSON.parse(localStorage.thng).id}`
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+
+        const thng = JSON.parse(localStorage.thng);
+        $('#equipmentTitle').text(thng.name);
+        startCamera();
+    });
+</script>
+
+</body>
+</html>
