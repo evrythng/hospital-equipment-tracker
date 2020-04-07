@@ -9,7 +9,7 @@ as ventilators or free beds. Over a virtual coffee, we came up with the idea to 
  using the [EVRYTHNG product cloud](https://dashboard.evrythng.com). The equipment tracker currenlty does three things:
  
  - Register equipment and product type and monitor your hospital in our dashbaord (see [video](docs/videos/dashboard.mov))
- - Track equipment usage and equipment movement using a simple Web app (see [video](docs/videos/mobile client.mp4))
+ - Track equipment usage and equipment movement using a simple Web app (see [video](docs/videos/mobile-client.mp4))
 
 ## Tracking equipment free or in in use
 
