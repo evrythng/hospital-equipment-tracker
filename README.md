@@ -8,8 +8,8 @@ We saw in several news reports that hospitals were using spreadsheets to track m
 as ventilators or free beds. Over a virtual coffee, we came up with the idea to build a hospital equipment tracker 
  using the [EVRYTHNG product cloud](https://dashboard.evrythng.com). The equipment tracker currenlty does three things:
  
- - Register equipment and product type and monitor your hospital in our dashbaord (see [video](docs/videos/dashboard.mov))
- - Track equipment usage and equipment movement using a simple Web app (see [video](docs/videos/mobile-client.mp4))
+ - Register equipment and product type and monitor your hospital in our dashbaord (see [video](https://storage.googleapis.com/hospital-beds-store/docs/videos/dashboard.mov))
+ - Track equipment usage and equipment movement using a simple Web app (see [video](https://storage.googleapis.com/hospital-beds-store/docs/videos/mobile-client.mp4))
 
 ## Tracking equipment free or in in use
 
