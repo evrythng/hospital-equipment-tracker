@@ -1,4 +1,4 @@
-# Hospital Equipment Tracker - EVRYTHNG Limited Volunteers
+# Hospital Equipment Tracker 
 
 |![Equipment Tracker Architecture](docs/images/equipment-tracker-architecture.jpeg)|
 |:--:| 
