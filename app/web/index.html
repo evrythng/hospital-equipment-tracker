@@ -156,12 +156,14 @@
             let label = document.createElement('div');
             label.textContent = k;
             label.setAttribute('class', 'col');
+
             let value = document.createElement('div');
             value.setAttribute('class', 'col');
+
             value.textContent = dict[k];
             let identifierEntry = document.createElement('div');
             identifierEntry.setAttribute('class', 'row');
-            ;
+
             identifierEntry.appendChild(label);
             identifierEntry.appendChild(value);
             document.getElementById(collectionId).appendChild(identifierEntry);
