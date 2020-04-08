@@ -58,4 +58,4 @@ To assign a piece of equipment to a new location
     - You'll get pages of QR codes, which you will print and attach to your walls or doors.
 - [Register](https://dashboard.evrythng.com/signup) for an account on the EVRYTHNG platform. Send us your username (it will be your email address) and we will give you access to the master data.
 
-<div align="center">NOW YOU’RE READY!</div>
+<div align="center">*NOW YOU’RE READY!*</div>
