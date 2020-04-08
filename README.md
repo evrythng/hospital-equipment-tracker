@@ -6,9 +6,8 @@
 
 We saw in several news reports that hospitals were using spreadsheets to track medical equipment such as ventilators or beds. Over a virtual coffee, we came up with the idea to build a hospital equipment tracker using the [EVRYTHNG product cloud](https://dashboard.evrythng.com). The equipment tracker currently does two things:
 
-- Register medical individual equipment and the product type (e.g. ICU MECHANICAL BED or Leon Plus, Neo, HLM, with Aion). Product types describe a set of equipment or stock keepign unit (SKU). Once you added equipment and product type to the
-- EVRYTHNG product cloud, you’ll be able to monitor equipment usage and location in our  dashboard (see [video](https://storage.googleapis.com/hospital-beds-store/docs/videos/dashboard.mov))
-Track equipment availability and equipment movement using a simple web page (see [video](https://storage.googleapis.com/hospital-beds-store/docs/videos/mobile-client.mp4))
+- Register medical individual equipment and the product type (e.g. ICU MECHANICAL BED or Leon Plus, Neo, HLM, with Aion). Product types describe a set of equipment or stock keepign unit (SKU). Once you added equipment and product type to the EVRYTHNG product cloud, you’ll be able to monitor equipment usage and location in our  dashboard (see [video](https://storage.googleapis.com/hospital-beds-store/docs/videos/dashboard.mov))
+- Track equipment availability and equipment movement using a simple web page (see [video](https://storage.googleapis.com/hospital-beds-store/docs/videos/mobile-client.mp4))
 
 ## Equipment Availability
 
