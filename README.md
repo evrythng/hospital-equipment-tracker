@@ -46,10 +46,10 @@ To assign a piece of equipment to a new location
 
 ## Interested? Here is what you need to do
 
-[me](mailto:joel@evrythng.com) 
+
 ## Initial Setup:
 
-- Send me an email with a list (Excel, csv) of which equipment you'd like to track and all possible locations. 
+- Send [me](mailto:joel@evrythng.com)  an email with a list (Excel, csv) of which equipment you'd like to track and all possible locations. 
 - Download EQUIPMENT QR codes
     - `https://equipment-tracker-dot-machine-learning-238812.appspot.com//hospitals/{hospital_name}/equipments`.
     - You'll get pages of QR codes, which you will print and attach to your equipment.
