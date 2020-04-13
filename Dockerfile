@@ -20,6 +20,7 @@ RUN pip install websockets
 RUN pip install aiofiles
 RUN pip install svglib
 RUN pip install qrcode[pil]
+RUN pip install Cython
 
 COPY ./app /app
 #ENTRYPOINT uvicorn main:app --host 0.0.0.0 --port 80 --timeout-keep-alive 540
