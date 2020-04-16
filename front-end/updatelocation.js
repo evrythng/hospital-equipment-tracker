@@ -66,13 +66,14 @@ const startCamera = () => {
 
                         // history.go(-1);
                         // toMainPage();
+                        $('#result').text('DEBUG ' + `https://covid.evrythng.io/equipmentinformation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`)
 
                     })
             });
         }
 
     }).catch(console.log).then(()=>{
-        alert(`https://covid.evrythng.io/equipmentinformation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`)
+
                         $(location).attr('href',`https://covid.evrythng.io/equipmentinformation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`);
     });
 };
