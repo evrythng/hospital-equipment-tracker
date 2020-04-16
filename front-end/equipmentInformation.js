@@ -90,7 +90,7 @@ $("#equipmentStateButton").click( async () => {
 });
 
 function updateTable(tableId, values) {
-    $(`#{tableId}`).empty();
+    $(`#${tableId}`).empty();
     for (let k in values)
         $(`#${tableId}`).append(`<tr><td>${k.replace('_', ' ')}</td><td>${values[k]}</td>`);
 }
@@ -124,7 +124,7 @@ $( window ).on( "load", async () => {
 
 function onFocusOut() {
     $(window).focus(onFocus);
-    $(window).focusout(onFocusOut);
+    $(window).off('focusout');
 }
 
 async function onFocus() {
@@ -139,6 +139,6 @@ async function onFocus() {
     const locationValues = currentLocation.customFields;
     locationValues['name'] = currentLocation.name;
     updateTable('locationTable', locationValues);
-    $(window).focus(onFocus);
+    $(window).off('focus');
     $(window).focusout(onFocusOut);
 }
