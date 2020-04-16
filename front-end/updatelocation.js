@@ -103,7 +103,7 @@ function pathToDict(path) {
 }
 
 function toMainPage() {
-    window.location.href = `equipmentlocation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`
+    $(location).attr('href',`equipmentlocation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`);
 }
 
 
