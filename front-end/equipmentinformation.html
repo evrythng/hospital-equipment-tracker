@@ -12,44 +12,59 @@
 </head>
 
 <body class="d-xl-flex flex-column">
-    <nav class="navbar navbar-light sticky-top text-center d-xl-flex align-items-center align-content-center justify-content-xl-center" style="background-color: #164B53;">
-        <div class="container-fluid"><a class="navbar-brand text-center text-white d-xl-flex flex-column align-items-center align-content-center" href="#" style="width: 100%;">Hospital Equipment Tracker<br></a></div>
-    </nav>
-    <div class="d-flex flex-column justify-content-center align-items-center justify-content-xl-center align-items-xl-center">
-        <div class="text-center d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center"><button class="btn btn-primary pull-right" type="button" style="margin: 10px;background-color: #2B94A3;"><i class="fa fa-plus-square-o" style="margin: 5px;"></i>Assign a Product</button><button class="btn btn-primary pull-right" type="button"
-                style="margin: 10px;background-color: #2B94A3;"><i class="fa fa-location-arrow" style="margin: 5px;"></i>Update Location</button></div>
-        <div class="border rounded-0 border-dark d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center"
-            style="padding: 10px;margin: 10px;width: 200px;height: 200px;"><img class="d-flex justify-content-center align-items-center"></div>
-        <div class="table-responsive border rounded-0">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th class="text-left" style="background-color: #74ADB6;">Product Information</th>
-                        <th style="background-color: #74ADB6;"></th>
-                    </tr>
-                </thead>
-                <tbody id="productTable">
-                </tbody>
-            </table>
-        </div>
-        <div class="table-responsive border rounded-0">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th class="text-left" style="background-color: #74ADB6;">Location</th>
-                        <th style="background-color: #74ADB6;"></th>
-                    </tr>
-                </thead>
-                <tbody id="locationTable">
+<nav class="navbar navbar-light sticky-top text-center d-xl-flex align-items-center align-content-center justify-content-xl-center"
+     style="background-color: #164B53;">
+    <div class="container-fluid"><a
+            class="navbar-brand text-center text-white d-xl-flex flex-column align-items-center align-content-center"
+            href="#" style="width: 100%;">Hospital Equipment Tracker<br></a></div>
+</nav>
+<div class="d-flex flex-column justify-content-center align-items-center justify-content-xl-center align-items-xl-center">
+    <div class="text-center d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center">
+        <button class="btn btn-primary pull-right" type="button" style="margin: 10px;background-color: #2B94A3;"><i
+                class="fa fa-plus-square-o" style="margin: 5px;"></i>Assign a Product
+        </button>
+       <a class="nav-link" href="updatelocation.html"> <button class="btn btn-primary pull-right" type="button"
+                style="margin: 10px;background-color: #2B94A3;"><i class="fa fa-location-arrow"
+                                                                   style="margin: 5px;"></i>Update Location
+       </button></a>
+    </div>
+    <div class="border rounded-0 border-dark d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center"
+         style="padding: 10px;margin: 10px;width: 200px;height: 200px;"><img
+            class="d-flex justify-content-center align-items-center"></div>
+    <div class="table-responsive border rounded-0">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th class="text-left" style="background-color: #74ADB6;">Product Information</th>
+                <th style="background-color: #74ADB6;"></th>
+            </tr>
+            </thead>
+            <tbody id="productTable">
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive border rounded-0">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th class="text-left" style="background-color: #74ADB6;">Location</th>
+                <th style="background-color: #74ADB6;"></th>
+            </tr>
+            </thead>
+            <tbody id="locationTable">
 
-                </tbody>
-            </table>
-        </div>
-        <p style="font-size: 24px;margin-top: 15px;margin-bottom: 0px;"><strong>STATUS</strong></p>
-        <p style="font-size: 36px;color: #FF6601;"><strong id="equipmentState">OCCUPIED</strong></p><button id="equipmentStateButton" class="btn btn-primary pull-right" type="button" style="margin: 10px;background-color: #2B94A3;font-size: 24px;" id="buttonInstruction">Change Status to Free</button></div>
+            </tbody>
+        </table>
+    </div>
+    <p style="font-size: 24px;margin-top: 15px;margin-bottom: 0px;"><strong>STATUS</strong></p>
+    <p style="font-size: 36px;color: #FF6601;"><strong id="equipmentState">OCCUPIED</strong></p>
+    <button id="equipmentStateButton" class="btn btn-primary pull-right" type="button"
+            style="margin: 10px;background-color: #2B94A3;font-size: 24px;" id="buttonInstruction">Change Status to Free
+    </button>
+</div>
 <!--    <script src="assets/js/jquery.min.js"></script>-->
 <!--    <script src="assets/bootstrap/js/bootstrap.min.js"></script>-->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
         integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
         crossorigin="anonymous"></script>
 <!-- Tether -->

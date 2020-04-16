@@ -33,6 +33,7 @@ function queryParam(param) {
 
 
 const apiKey = queryParam('apiKey');
+localStorage.setItem("apiKey", apiKey);
 
 const app = new evrythng.TrustedApplication(apiKey);
 
@@ -107,6 +108,7 @@ $( window ).on( "load", async () => {
     const thng = await app.thng(queryParam('thngId')).read();
 
     localStorage.setItem("thng", JSON.stringify(thng));
+
     const product = await app.product(thng.product).read().then();
 
 
