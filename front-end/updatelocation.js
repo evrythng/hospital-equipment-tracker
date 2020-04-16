@@ -116,7 +116,7 @@ function updateTable(tableId, values) {
 
 $( window ).on( "load", async () => {
     const thng = JSON.parse(localStorage.thng);
-    $('#equipmentTitle').text(thng.name);
+    // $('#equipmentTitle').text(thng.name);
     startCamera();
 
     const product = await app.product(thng.product).read().then();

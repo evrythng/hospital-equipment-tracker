@@ -12,37 +12,43 @@
 </head>
 
 <body class="d-xl-flex flex-column">
-    <nav class="navbar navbar-light sticky-top text-center d-xl-flex align-items-center align-content-center justify-content-xl-center" style="background-color: #164B53;">
-        <div class="container-fluid"><a class="navbar-brand text-center text-white d-xl-flex flex-column align-items-center align-content-center" href="#" style="width: 100%;">Hospital Equipment Tracker<br></a></div>
-    </nav>
-    <div class="d-flex flex-column justify-content-center align-items-center justify-content-xl-center align-items-xl-center">
-        <h1 class="text-center">UPDATE LOCATION</h1>
-        <div class="border rounded-0 border-dark d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center" style="padding: 10px;margin: 10px;width: 350px;height: 350px;">
-<div class="content" style="width: 100%;height: 100%">
-    <div id="stream_container" class="stream-container" style="width: 95%;height: 95%">
-        <!-- Video inserted here by scanthng.js -->
-    </div>
-</div>
-    <!--        <div id="button-start-camera" class="button">Start Camera</div>-->
-    <a id="result" class="result" target="_blank"></a>
+<nav class="navbar navbar-light sticky-top text-center d-xl-flex align-items-center align-content-center justify-content-xl-center"
+     style="background-color: #164B53;">
+    <div class="container-fluid"><a
+            class="navbar-brand text-center text-white d-xl-flex flex-column align-items-center align-content-center"
+            href="#" style="width: 100%;">Hospital Equipment Tracker<br></a></div>
+</nav>
+<div class="d-flex flex-column justify-content-center align-items-center justify-content-xl-center align-items-xl-center">
+    <h1 class="text-center">UPDATE LOCATION</h1>
+<!--    <div class="border rounded-0 border-dark d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center"-->
+<!--         style="padding: 10px;margin: 10px;width: 350px;height: 350px;">-->
+        <div class="content" style="width: 60%;height: 60%">
+            <div id="stream_container" class="stream-container" style="width: 95%;height: 95%">
+                <!-- Video inserted here by scanthng.js -->
+            </div>
         </div>
-        <div class="border rounded-0 border-dark d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center" style="padding: 10px;margin: 10px;width: 200px;height: 200px;"><img class="d-flex justify-content-center align-items-center"></div>
-        <div class="table-responsive border rounded-0">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th class="text-left" style="background-color: #74ADB6;">Product Information</th>
-                        <th style="background-color: #74ADB6;"></th>
-                    </tr>
-                </thead>
+        <!--        <div id="button-start-camera" class="button">Start Camera</div>-->
+        <a id="result" class="result" target="_blank"></a>
+<!--    </div>-->
+    <div class="border rounded-0 border-dark d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center"
+         style="padding: 10px;margin: 10px;width: 200px;height: 200px;"><img
+            class="d-flex justify-content-center align-items-center"></div>
+    <div class="table-responsive border rounded-0">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th class="text-left" style="background-color: #74ADB6;">Product Information</th>
+                <th style="background-color: #74ADB6;"></th>
+            </tr>
+            </thead>
             <tbody id="productTable">
             </tbody>
-            </table>
-        </div>
+        </table>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+</div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
         crossorigin="anonymous"></script>
 <script src="lib/jsQR/jsQR.js"></script>
