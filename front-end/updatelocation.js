@@ -62,17 +62,19 @@ const startCamera = () => {
                 // UI.anchorResult.innerHTML = JSON.stringify(actionDocument);
 
                 if (Object.getOwnPropertyNames(place).length >= 1)
-                    return app.action(action_type).create(actionDocument).catch(alert).then(data => {
+                    return app.action(action_type).create(actionDocument).then(data => {
 
                         // history.go(-1);
                         // toMainPage();
-                        alert(`https://covid.evrythng.io/equipmentinformation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`)
-                        $(location).attr('href',`https://covid.evrythng.io/equipmentinformation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`);
-                    });
+
+                    })
             });
         }
 
-    }).catch(console.log);
+    }).catch(console.log).then(()=>{
+        alert(`https://covid.evrythng.io/equipmentinformation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`)
+                        $(location).attr('href',`https://covid.evrythng.io/equipmentinformation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`);
+    });
 };
 
 function pathToDict(path) {
