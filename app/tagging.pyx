@@ -76,7 +76,7 @@ class FillLine:
                                                         UrlQRCode(box_size=box_size, url=tag['url']))
         return self.mem[(box_size, tag['url'])]
 
-    def __call__(self, int box_size, int text_width, dict tags):
+    def __call__(self, int box_size, int text_width, list tags):
         cdef int used_space = 0
         cdef int i = 0
         for i, u in enumerate(tags):

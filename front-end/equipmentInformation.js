@@ -1,3 +1,4 @@
+
 evrythng.setup({apiUrl: 'https://api.evrythng.com', geolocation: false});
 
 const app = new evrythng.TrustedApplication(apiKey);
@@ -53,83 +54,91 @@ async function updateCollection(collectionId, dict) {
 
 
 function updateInUseView(inUse) {
-    if (inUse) {
-        document.getElementById("equipmentState").classList.add('btn-success');
-        document.getElementById("equipmentState").classList.replace('btn-success', 'btn-danger');
-        document.getElementById("equipmentState").innerText = "Occupied";
-    } else {
-        document.getElementById("equipmentState").classList.add('btn-danger');
-        document.getElementById("equipmentState").classList.replace('btn-danger', 'btn-success');
-        document.getElementById("equipmentState").innerText = "Free";
-    }
+    const uiInfo = {
+        true:{
+            equipmentState:'OCCUPIED',
+            equipmentStateButton: 'Change Status to Free'
+        },
+        false: {
+            equipmentState:'FREE',
+            equipmentStateButton: 'Change Status to Occupied'
+        }
+    };
+    for (let k in uiInfo[inUse])
+        $(`#${k}`).text(uiInfo[inUse][k]);
 }
 
 
 
 
-document.getElementById("equipmentState").onclick = async () => {
+$("#equipmentStateButton").click( async () => {
+
     const thng = await app.thng(queryParam('thngId')).read();
     let inUse = !thng.properties.inuse;
+    updateInUseView(inUse)
+
     const action = {
         type: inUse ? '_InUse' : '_Free',
         thng: thng.id
     };
 
-    updateInUseView(inUse);
+
     if (inUse)
         await app.thng(thng.id).action(action.type).create(action).then();
     else
         await app.thng(thng.id).action(action.type).create(action).then();
-};
+});
 
-alert(window.query)
-document.addEventListener("DOMContentLoaded", async () => {
+function updateTable(tableId, values) {
+    $(`#{tableId}`).empty();
+    for (let k in values)
+        $(`#${tableId}`).append(`<tr><td>${k.replace('_', ' ')}</td><td>${values[k]}</td>`);
+}
+
+$( window ).on( "load", async () => {
     if (apiKey === undefined) {
         $('#equipmentTitle').text('Query string missing');
     }
     const thng = await app.thng(queryParam('thngId')).read();
+
     localStorage.setItem("thng", JSON.stringify(thng));
-    updateInUseView(thng.properties.inuse);
     const product = await app.product(thng.product).read().then();
-    $('#brandValue').text('product.brand');
-    await updateCollection('thngIdentifiers', thng.identifiers);
-    await updateCollection('thngCustomFields', thng.customFields);
+
+
     const productInformation = {
         brand: product.brand,
-        'product name': product.name,
+        'name': product.name,
         specification: product.description
     };
-    await updateCollection('productInformation', productInformation);
+
+    updateTable('productTable', productInformation);
     const currentLocation = await app.place(thng.location.place).read();
-    // JSON.stringify(currentLocation)
-    const placeInformation = {};
-    placeInformation.name = currentLocation.name;
-    for (let k in currentLocation.customFields)
-        placeInformation[k.replace('_', ' ')] = currentLocation.customFields[k];
+    const locationValues = currentLocation.customFields;
+    locationValues['name'] = currentLocation.name;
+    updateTable('locationTable', locationValues);
 
-    await updateCollection('locationInformation', placeInformation);
-    window.addEventListener('blur', onFocusOut);
-    window.addEventListener('focus', onFocus);
+    $(window).focus(onFocus);
+    $(window).focusout(onFocusOut);
 
-}, false);
+});
 
 function onFocusOut() {
-    window.addEventListener('focusin', onFocus);
-    window.removeEventListener('focusout', onFocusOut, false);
+    $(window).focus(onFocus);
+    $(window).focusout(onFocusOut);
 }
 
 async function onFocus() {
     const thng = await app.thng(queryParam('thngId')).read();
-    updateInUseView(thng.properties.inuse);
-    $('#locationInformation').empty();
+    let inUse = !thng.properties.inuse;
+    updateInUseView(inUse);
+    // updateInUseView(thng.properties.inuse);
+
+
     const currentLocation = await app.place(thng.location.place).read();
 
-    const placeInformation = {};
-    placeInformation.name = currentLocation.name;
-    for (let k in currentLocation.customFields)
-        placeInformation[k.replace('_', ' ')] = currentLocation.customFields[k];
-
-    await updateCollection('locationInformation', placeInformation);
-    window.addEventListener('focusout', onFocusOut);
-    window.removeEventListener('focusin', onFocus, false);
+    const locationValues = currentLocation.customFields;
+    locationValues['name'] = currentLocation.name;
+    updateTable('locationTable', locationValues);
+    $(window).focus(onFocus);
+    $(window).focusout(onFocusOut);
 }

@@ -28,19 +28,7 @@
                         <th style="background-color: #74ADB6;"></th>
                     </tr>
                 </thead>
-                <tbody>
-                        <tr>
-                        <td>Brand</td>
-                        <td id="brandValue"></td>
-                    </tr>
-                    <tr>
-                        <td>Specification<br></td>
-                        <td id="specificationValue"></td>
-                    </tr>
-                    <tr>
-                        <td>Product Name<br></td>
-                        <td id="nameValue"></td>
-                    </tr>
+                <tbody id="productTable">
                 </tbody>
             </table>
         </div>
@@ -52,26 +40,18 @@
                         <th style="background-color: #74ADB6;"></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Brand</td>
-                        <td ><br></td>
-                    </tr>
-                    <tr>
-                        <td>Specification<br></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Product Name<br></td>
-                        <td><br></td>
-                    </tr>
+                <tbody id="locationTable">
+
                 </tbody>
             </table>
         </div>
         <p style="font-size: 24px;margin-top: 15px;margin-bottom: 0px;"><strong>STATUS</strong></p>
-        <p style="font-size: 36px;color: #FF6601;"><strong>OCCUPIED</strong></p><button class="btn btn-primary pull-right" type="button" style="margin: 10px;background-color: #2B94A3;font-size: 24px;">Change Status to Free</button></div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <p style="font-size: 36px;color: #FF6601;"><strong id="equipmentState">OCCUPIED</strong></p><button id="equipmentStateButton" class="btn btn-primary pull-right" type="button" style="margin: 10px;background-color: #2B94A3;font-size: 24px;" id="buttonInstruction">Change Status to Free</button></div>
+<!--    <script src="assets/js/jquery.min.js"></script>-->
+<!--    <script src="assets/bootstrap/js/bootstrap.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
 <!-- Tether -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"

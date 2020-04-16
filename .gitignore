@@ -112,6 +112,10 @@ venv
 # credentials
 *.key
 
+.ipynb_checkpoints
+
+.idea
+
 __pycache__
 
 
