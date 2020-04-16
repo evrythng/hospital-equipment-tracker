@@ -62,7 +62,7 @@ const startCamera = () => {
                 // UI.anchorResult.innerHTML = JSON.stringify(actionDocument);
 
                 if (Object.getOwnPropertyNames(place).length >= 1)
-                    return app.action(action_type).create(actionDocument).then(data => {
+                    return app.action(action_type).create(actionDocument).catch(alert).then(data => {
 
                         // history.go(-1);
                         // toMainPage();
