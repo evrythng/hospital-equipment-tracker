@@ -142,3 +142,4 @@ async function onFocus() {
     $(window).off('focus');
     $(window).focusout(onFocusOut);
 }
+// https://covid.evrythng.io/equipmentinformation.html?thngId=U8kF7pW2HhePA7wcV7N9Essp
