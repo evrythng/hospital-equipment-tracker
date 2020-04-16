@@ -103,7 +103,7 @@ function pathToDict(path) {
 }
 
 function toMainPage() {
-    $(location).attr('href',`equipmentlocation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`);
+    $(location).prop('href',`https://covid.evrythng.io/equipmentlocation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`);
 }
 
 
