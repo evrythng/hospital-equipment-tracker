@@ -65,7 +65,8 @@ const startCamera = () => {
                     return app.action(action_type).create(actionDocument).then(data => {
 
                         // history.go(-1);
-                        toMainPage();
+                        // toMainPage();
+                        $(location).attr('href',`https://covid.evrythng.io/equipmentlocation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`);
                     });
             });
         }
