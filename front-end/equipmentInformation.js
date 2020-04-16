@@ -1,7 +1,8 @@
 
 evrythng.setup({apiUrl: 'https://api.evrythng.com', geolocation: false});
 
-const app = new evrythng.TrustedApplication(apiKey);
+
+
 
 function queryStrToDict(searchStr) {
 
@@ -24,12 +25,16 @@ function queryStrToDict(searchStr) {
 
 }
 
-
 function queryParam(param) {
     if (this.queryParams === undefined)
         this.queryParams = queryStrToDict(window.location.search)
     return this.queryParams[param]
 }
+
+
+const apiKey = queryParam('apiKey');
+
+const app = new evrythng.TrustedApplication(apiKey);
 
 
 async function updateCollection(collectionId, dict) {
