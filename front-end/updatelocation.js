@@ -103,12 +103,32 @@ function pathToDict(path) {
 }
 
 function toMainPage() {
-    window.location.href = `index.html?thngId=${JSON.parse(localStorage.thng).id}`
+    window.location.href = `equipmentlocation.html?thngId=${JSON.parse(localStorage.thng).id}&apiKey=${apiKey}`
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
 
+
+function updateTable(tableId, values) {
+    $(`#${tableId}`).empty();
+    for (let k in values)
+        $(`#${tableId}`).append(`<tr><td>${k.replace('_', ' ')}</td><td>${values[k]}</td>`);
+}
+
+$( window ).on( "load", async () => {
     const thng = JSON.parse(localStorage.thng);
     $('#equipmentTitle').text(thng.name);
     startCamera();
+
+    const product = await app.product(thng.product).read().then();
+
+
+    const productInformation = {
+        brand: product.brand,
+        'name': product.name,
+        specification: product.description
+    };
+
+    updateTable('productTable', productInformation);
+
+
 });
