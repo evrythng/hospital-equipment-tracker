@@ -34,7 +34,7 @@ function queryParam(param) {
 
 const apiKey = queryParam('apiKey');
 localStorage.setItem("apiKey", apiKey);
-const app = new evrythng.TrustedApplication(apiKey);
+let app = new evrythng.TrustedApplication(apiKey);
 
 
 async function readUsedAndUnusedEquipment() {
@@ -57,6 +57,9 @@ $( window ).on( "load", async () => {
     if (apiKey === undefined) {
         alert('api key is missing. please set the trusted app api key as ?apiKey=')
     }
+
+    const appInfo = await app.init();
+    $('#hospitalName').text(appInfo.name);
     const equipmentStats = await readUsedAndUnusedEquipment();
     for (let k in equipmentStats)
         $(`#${k}`).text(equipmentStats[k]);
@@ -73,6 +76,7 @@ function onFocusOut() {
 
 async function onFocus() {
     const equipmentStats = await readUsedAndUnusedEquipment();
+
     for (let k in equipmentStats)
         $(`#${k}`).text(equipmentStats[k]);
     $(window).off('focus');
