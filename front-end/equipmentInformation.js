@@ -27,7 +27,7 @@ function queryStrToDict(searchStr) {
 
 function queryParam(param) {
     if (this.queryParams === undefined)
-        this.queryParams = queryStrToDict(window.location.search)
+        this.queryParams = queryStrToDict(window.location.search);
     return this.queryParams[param]
 }
 
